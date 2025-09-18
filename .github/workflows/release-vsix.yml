@@ -47,8 +47,8 @@ jobs:
           fi
           echo "version=$V" >> "$GITHUB_OUTPUT"
 
-      - name: Set package.json version
-        run: npm version --no-git-tag-version "${{ steps.ver.outputs.version }}"
+      - name: Set package.json version (idempotent)
+        run: npm pkg set version="${{ steps.ver.outputs.version }}"
 
       - name: Build
         run: npm run build
@@ -79,11 +79,20 @@ jobs:
           name: vsix
           path: ./dist
 
+      - name: Compute release tag
+        id: tag
+        run: |
+          if [ "${GITHUB_REF_TYPE}" = "tag" ] && [ -n "${GITHUB_REF_NAME}" ]; then
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=v${{ steps.ver.outputs.version }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name || format('v{0}', github.event.inputs.version) }}
-          name: ${{ github.ref_name || format('v{0}', github.event.inputs.version) }}
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name:     ${{ steps.tag.outputs.tag }}
           prerelease: ${{ github.event.inputs.prerelease == true }}
           files: |
             dist/*.vsix
