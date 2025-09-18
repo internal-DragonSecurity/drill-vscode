@@ -1,0 +1,94 @@
+{
+  "name": "drill-vscode",
+  "displayName": "Drill Agent",
+  "description": "",
+  "version": "0.5.0",
+  "publisher": "dragonsecurity",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "extensionKind": [
+    "workspace"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "drill.startAgent",
+        "title": "Drill: Start Agent"
+      },
+      {
+        "command": "drill.stopAgent",
+        "title": "Drill: Stop Agent"
+      },
+      {
+        "command": "drill.run",
+        "title": "Drill: Run Command\u2026"
+      },
+      {
+        "command": "drill.installOrUpdate",
+        "title": "Drill: Install/Update Agent"
+      }
+    ],
+    "configuration": {
+      "title": "Drill",
+      "properties": {
+        "drill.path": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to an existing Drill binary. Leave empty to auto-install the latest release.",
+          "scope": "window"
+        },
+        "drill.args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Arguments when starting the agent (e.g. [\"--port\",\"8080\"]).",
+          "scope": "window"
+        },
+        "drill.cwd": {
+          "type": "string",
+          "default": "${workspaceFolder}",
+          "description": "Working directory for the agent process.",
+          "scope": "window"
+        },
+        "drill.autoInstall": {
+          "type": "boolean",
+          "default": true,
+          "description": "If no path is set, automatically download the latest drill-server for your OS/arch from GitHub Releases.",
+          "scope": "window"
+        },
+        "drill.composeFile": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Optional docker-compose file. If set, the extension runs `docker compose -f <file> up <service>` instead of a local binary.",
+          "scope": "window"
+        },
+        "drill.composeService": {
+          "type": "string",
+          "default": "drill",
+          "description": "Service name in the compose file.",
+          "scope": "window"
+        }
+      }
+    }
+  },
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.104.0",
+    "@types/node": "24.x",
+    "typescript": "^5.9.2",
+    "@vscode/vsce": "3.6.0"
+  }
+}
