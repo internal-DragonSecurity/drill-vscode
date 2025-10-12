@@ -64,7 +64,7 @@ jobs:
           echo "path=$VSIX" >> "$GITHUB_OUTPUT"
           echo "VSIX=$VSIX"
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: vsix
           path: ${{ steps.artifact.outputs.path }}
@@ -89,7 +89,7 @@ jobs:
           fi
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@6da8fa9354ddfdc4aeace5fc48d7f679b5214090 # v2
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
           name:     ${{ steps.tag.outputs.tag }}

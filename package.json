@@ -86,9 +86,9 @@
     "package": "vsce package"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.1",
-    "@types/node": "24.x",
-    "typescript": "^5.9.2",
+    "@types/vscode": "1.104.0",
+    "@types/node": "24.7.0",
+    "typescript": "5.9.3",
     "@vscode/vsce": "3.6.2"
   }
 }
