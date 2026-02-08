@@ -89,6 +89,6 @@
     "@types/vscode": "1.109.0",
     "@types/node": "24.10.0",
     "typescript": "5.9.3",
-    "@vscode/vsce": "3.7.0"
+    "@vscode/vsce": "3.7.1"
   }
 }
